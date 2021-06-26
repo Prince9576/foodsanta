@@ -1,0 +1,10 @@
+.search-wrapper {
+  margin-bottom: 2rem;
+}
+
+.meals-wrapper {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+  grid-gap: 50px;
+}

@@ -1,0 +1,39 @@
+.meal-container {
+  box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+}
+.cart-icon {
+  position: absolute;
+  width: 65px;
+  height: 65px;
+  background-color: #efefef;
+  top: 20px;
+  right: 20px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 8px #bbb;
+}
+.cart-icon i {
+  font-size: 1.6rem;
+  color: orangered;
+}
+.meal-img {
+  height: 20rem;
+  width: 100%;
+  border-radius: 10px;
+}
+
+h4 {
+  margin: 0;
+  margin-bottom: 5px;
+}
+p {
+  margin: 0;
+}
+.flexify {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

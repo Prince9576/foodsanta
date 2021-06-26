@@ -1,0 +1,19 @@
+.search-container {
+  position: relative;
+}
+input[type="text"] {
+  width: 95%;
+  border: 0;
+  background-color: #efefef;
+  padding: 1rem 2rem;
+  border-radius: 40px;
+  font-family: "Raleway";
+  font-weight: 600;
+}
+i {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: gray;
+}
