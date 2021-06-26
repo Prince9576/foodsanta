@@ -10,6 +10,10 @@ input[type="text"] {
   font-family: "Raleway";
   font-weight: 600;
 }
+input[type="text"]:focus-visible {
+  outline: none;
+  border: 0;
+}
 i {
   position: absolute;
   right: 20px;

@@ -1,5 +1,14 @@
+import EmptyCart from "../Cart/EmptyCart";
+import styles from "./Side.module.css";
+
 const Side = (props) => {
-  return <h2>Side</h2>;
+  return (
+    <div>
+      <h1 className={styles.title}>My Orders</h1>
+      <hr></hr>
+      <EmptyCart />
+    </div>
+  );
 };
 
 export default Side;

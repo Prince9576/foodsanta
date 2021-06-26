@@ -50,22 +50,6 @@ const Meals = (props) => {
       imageUrl:
         "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/Pizza-from-Scratch_EXPS_FT20_8621_F_0505_1_home.jpg",
     },
-    {
-      id: "m3",
-      name: "Barbecue Burger",
-      description: "American, raw, meaty",
-      price: 12.99,
-      imageUrl:
-        "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/Pizza-from-Scratch_EXPS_FT20_8621_F_0505_1_home.jpg",
-    },
-    {
-      id: "m4",
-      name: "Green Bowl",
-      description: "Healthy...and green...",
-      price: 18.99,
-      imageUrl:
-        "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/Pizza-from-Scratch_EXPS_FT20_8621_F_0505_1_home.jpg",
-    },
   ];
   return DUMMY_MEALS.map((meal) => {
     return <Meal meal={meal} />;
