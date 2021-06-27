@@ -35,7 +35,7 @@ const Meals = (props) => {
         "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/Pizza-from-Scratch_EXPS_FT20_8621_F_0505_1_home.jpg",
     },
     {
-      id: "m1",
+      id: "m5",
       name: "Sushi",
       description: "Finest fish and veggies",
       price: 22.99,
@@ -43,7 +43,7 @@ const Meals = (props) => {
         "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/Pizza-from-Scratch_EXPS_FT20_8621_F_0505_1_home.jpg",
     },
     {
-      id: "m2",
+      id: "m6",
       name: "Schnitzel",
       description: "A german specialty!",
       price: 16.5,
@@ -52,7 +52,7 @@ const Meals = (props) => {
     },
   ];
   return DUMMY_MEALS.map((meal) => {
-    return <Meal meal={meal} />;
+    return <Meal key={meal.id} meal={meal} />;
   });
 };
 

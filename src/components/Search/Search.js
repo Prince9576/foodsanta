@@ -5,7 +5,7 @@ const Search = (props) => {
   return (
     <div className={styles["search-container"]}>
       <input type="text" id="search" placeholder={placeHolderText} />
-      <i className="fas fa-search"></i>
+      <i className={`${styles["search-icon"]} fas fa-search`}></i>
     </div>
   );
 };

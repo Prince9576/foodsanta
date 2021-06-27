@@ -1,0 +1,34 @@
+.cart-container {
+  font-family: "Roboto";
+  letter-spacing: 1px;
+}
+
+.info-list {
+  display: flex;
+  color: dimgray;
+  align-items: center;
+  margin-top: 1rem;
+}
+.info-item {
+  display: flex;
+  align-items: center;
+}
+.info-item i {
+  font-size: 1.35em;
+  margin-right: 5px;
+}
+.info-item:first-child {
+  margin-right: 2rem;
+}
+.line {
+  margin: 2rem 0;
+}
+.total-item {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  padding: 6px 0;
+}
+.total-item__header {
+  font-family: "Raleway";
+}

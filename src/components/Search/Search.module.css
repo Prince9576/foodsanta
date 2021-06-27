@@ -14,7 +14,7 @@ input[type="text"]:focus-visible {
   outline: none;
   border: 0;
 }
-i {
+.search-icon {
   position: absolute;
   right: 20px;
   top: 50%;

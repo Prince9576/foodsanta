@@ -2,9 +2,9 @@ import styles from "./Meal.module.css";
 
 const Meal = (props) => {
   return (
-    <div class={styles["meal-container"]}>
+    <div className={styles["meal-container"]}>
       <div className={styles["cart-icon"]}>
-        <i class="fas fa-cart-plus"></i>
+        <i className="fas fa-cart-plus"></i>
       </div>
       <img className={styles["meal-img"]} src={props.meal.imageUrl} />
       <hr></hr>

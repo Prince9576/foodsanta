@@ -18,6 +18,11 @@
 .cart-icon i {
   font-size: 1.6rem;
   color: orangered;
+  top: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-left: -2px;
 }
 .meal-img {
   height: 20rem;
