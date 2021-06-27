@@ -1,10 +1,15 @@
+import { useContext } from "react";
+import CartContext from "../../store/CartContext";
 import Button from "../UI/Button/Button";
 import Address from "./Address";
 import CartList from "./CartList";
 import styles from "./CartWrapper.module.css";
 
 const CartWrapper = (props) => {
+  const DELIVERY_CHARGES = 15.0;
+  const cartCtx = useContext(CartContext);
   const checkoutHandler = () => {};
+
   return (
     <div className={styles["cart-container"]}>
       <Address />
@@ -24,15 +29,21 @@ const CartWrapper = (props) => {
       <div className={styles["total-container"]}>
         <div className={styles["total-item"]}>
           <div className={styles["total-item__header"]}>Subtotal</div>
-          <div className={styles["total-item__price"]}>$45</div>
+          <div className={styles["total-item__price"]}>
+            $ {cartCtx.totalAmount.toFixed(2)}
+          </div>
         </div>
         <div className={styles["total-item"]}>
           <div className={styles["total-item__header"]}>Delivery</div>
-          <div className={styles["total-item__price"]}>$15</div>
+          <div className={styles["total-item__price"]}>
+            $ {DELIVERY_CHARGES.toFixed(2)}
+          </div>
         </div>
         <div className={styles["total-item"]}>
           <div className={styles["total-item__header"]}>Total</div>
-          <div className={styles["total-item__price"]}>$60</div>
+          <div className={styles["total-item__price"]}>{`$ ${(
+            cartCtx.totalAmount + DELIVERY_CHARGES
+          ).toFixed(2)}`}</div>
         </div>
       </div>
       <hr className={styles["line"]}></hr>

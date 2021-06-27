@@ -1,9 +1,15 @@
+import { useContext } from "react";
+import CartContext from "../../store/CartContext";
 import styles from "./Meal.module.css";
 
 const Meal = (props) => {
+  const cartCtx = useContext(CartContext);
+  const addToCartHandler = () => {
+    cartCtx.addItem(props.meal);
+  };
   return (
     <div className={styles["meal-container"]}>
-      <div className={styles["cart-icon"]}>
+      <div onClick={addToCartHandler} className={styles["cart-icon"]}>
         <i className="fas fa-cart-plus"></i>
       </div>
       <img className={styles["meal-img"]} src={props.meal.imageUrl} />

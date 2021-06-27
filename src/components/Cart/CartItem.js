@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import CartContext from "../../store/CartContext";
 import styles from "./CartItem.module.css";
 
 const CartItem = (props) => {
+  const cartCtx = useContext(CartContext);
   const [selectedNumberOfItems, setSelectedNumberOfItems] = useState(1);
   const itemsChangeHandler = (event) => {
     setSelectedNumberOfItems(+event.target.value);
+    cartCtx.updateItem(props.item.id, event.target.value);
   };
   return (
     <div className={styles["cart-item"]}>
