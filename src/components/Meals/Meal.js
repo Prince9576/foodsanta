@@ -1,15 +1,18 @@
 import { useContext, useEffect, useState } from "react";
 import CartContext from "../../store/CartContext";
+import MealContext from "../../store/MealContext";
 import styles from "./Meal.module.css";
 
 const Meal = (props) => {
   const cartCtx = useContext(CartContext);
+  const mealCtx = useContext(MealContext);
   const [mealAdded, setMealAdded] = useState(props.meal.added);
   const addToCartHandler = () => {
     if (props.meal.added) {
       return;
     }
     cartCtx.addItem(props.meal);
+    mealCtx.markAdded(props.meal.id);
     console.log("Added", props.meal);
   };
   useEffect(() => {

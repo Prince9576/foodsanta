@@ -19,7 +19,6 @@ const cartReducer = (prevState, action) => {
     if (action.item.added) {
       return prevState;
     }
-    action.item.added = true;
     const updatedItems = prevState.items.concat(action.item);
     const totalAmount = Math.round(
       prevState.totalAmount + action.item.amount * action.item.price

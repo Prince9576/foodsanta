@@ -67,15 +67,25 @@ const DEFAULT_STATE = {
 };
 
 const mealReducer = (prevState, action) => {
-  const indexOfItem = prevState.meals.findIndex((meal) => {
-    return action.id === meal.id;
-  });
-  const copyArr = [...prevState.meals];
-  if (action.type === "MARK_ADD") {
-    copyArr[indexOfItem].added = true;
-  } else if (action.type === "REMOVE_ADD") {
-    copyArr[indexOfItem].added = false;
+  if (action.type === "SEARCH") {
+    const filteredArr = DEFAULT_STATE.meals.filter((meal) => {
+      return meal.name.startsWith(action.word);
+    });
+    return {
+      meals: filteredArr,
+    };
+  } else {
+    const indexOfItem = prevState.meals.findIndex((meal) => {
+      return action.id === meal.id;
+    });
+    const copyArr = [...prevState.meals];
+    if (action.type === "MARK_ADD") {
+      copyArr[indexOfItem].added = true;
+    } else if (action.type === "REMOVE_ADD") {
+      copyArr[indexOfItem].added = false;
+    }
   }
+
   return DEFAULT_STATE;
 };
 const MealContextProvider = (props) => {
@@ -88,10 +98,15 @@ const MealContextProvider = (props) => {
   const removeAddedHandler = (id) => {
     dispatchMeal({ type: "REMOVE_ADD", id: id });
   };
+
+  const searchItemHandler = (word) => {
+    dispatchMeal({ type: "SEARCH", word: word });
+  };
   const mealContext = {
     meals: mealState.meals,
     markAdded: markAddedHandler,
     removeAdded: removeAddedHandler,
+    searchItems: searchItemHandler,
   };
   return (
     <MealContext.Provider value={mealContext}>

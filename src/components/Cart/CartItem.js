@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
 import CartContext from "../../store/CartContext";
+import MealContext from "../../store/MealContext";
 import Button from "../UI/Button/Button";
 import styles from "./CartItem.module.css";
 
 const CartItem = (props) => {
   const cartCtx = useContext(CartContext);
+  const mealCtx = useContext(MealContext);
   const [selectedNumberOfItems, setSelectedNumberOfItems] = useState(1);
   const itemsChangeHandler = (event) => {
     setSelectedNumberOfItems(+event.target.value);
@@ -14,6 +16,7 @@ const CartItem = (props) => {
   const deleteItemsHandler = (...args) => {
     console.log("Delete", args);
     cartCtx.removeItem(args[0]);
+    mealCtx.removeAdded(args[0]);
   };
   return (
     <div className={styles["cart-item"]}>
