@@ -1,17 +1,20 @@
 import Main from "./Main";
 import Side from "./Side";
 import styles from "./Layout.module.css";
+import MealContextProvider from "../../store/MealContextProvider";
 
 const Layout = (props) => {
   return (
-    <main>
-      <section className={styles.main}>
-        <Main />
-      </section>
-      <section className={styles.side}>
-        <Side />
-      </section>
-    </main>
+    <MealContextProvider>
+      <main>
+        <section className={styles.main}>
+          <Main />
+        </section>
+        <section className={styles.side}>
+          <Side />
+        </section>
+      </main>
+    </MealContextProvider>
   );
 };
 

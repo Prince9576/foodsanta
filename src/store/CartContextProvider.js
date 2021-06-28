@@ -6,9 +6,19 @@ const defaultState = {
   totalAmount: 0,
 };
 
+const totalCalculator = (arr) => {
+  const newTotalAmount = arr.reduce((pv, cv) => {
+    return pv + cv.price * cv.amount;
+  }, 0);
+  return newTotalAmount;
+};
+
 const cartReducer = (prevState, action) => {
   console.log("Reducer called", action);
   if (action.type === "ADD") {
+    if (action.item.added) {
+      return prevState;
+    }
     action.item.added = true;
     const updatedItems = prevState.items.concat(action.item);
     const totalAmount = Math.round(
@@ -25,12 +35,22 @@ const cartReducer = (prevState, action) => {
     console.log("Index of Item", indexOfItem);
     const selectedItem = prevState.items[indexOfItem];
     selectedItem.amount = action.amount;
-    const newTotalAmount = prevState.items.reduce((pv, cv) => {
-      return pv + cv.price * cv.amount;
-    }, 0);
+    const newTotalAmount = totalCalculator(prevState.items);
     return {
       items: prevState.items,
       totalAmount: newTotalAmount,
+    };
+  } else if (action.type === "REMOVE") {
+    const indexOfItem = prevState.items.findIndex((item) => {
+      return action.id === item.id;
+    });
+    const updatedItemsCopy = [...prevState.items];
+    updatedItemsCopy.splice(indexOfItem, 1);
+    const updatedTotal = totalCalculator(updatedItemsCopy);
+    console.log("updatedItems", updatedTotal);
+    return {
+      items: updatedItemsCopy,
+      totalAmount: updatedTotal,
     };
   }
   return defaultState;

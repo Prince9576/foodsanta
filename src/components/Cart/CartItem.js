@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import CartContext from "../../store/CartContext";
+import Button from "../UI/Button/Button";
 import styles from "./CartItem.module.css";
 
 const CartItem = (props) => {
@@ -8,6 +9,11 @@ const CartItem = (props) => {
   const itemsChangeHandler = (event) => {
     setSelectedNumberOfItems(+event.target.value);
     cartCtx.updateItem(props.item.id, event.target.value);
+  };
+
+  const deleteItemsHandler = (...args) => {
+    console.log("Delete", args);
+    cartCtx.removeItem(args[0]);
   };
   return (
     <div className={styles["cart-item"]}>
@@ -26,7 +32,20 @@ const CartItem = (props) => {
         </select>
       </div>
       <div className={styles.price}>
-        ${(+(props.item.price * selectedNumberOfItems)).toFixed(2)}
+        <div className={styles["price-value"]}>
+          {" "}
+          ${(+(props.item.price * selectedNumberOfItems)).toFixed(2)}
+        </div>
+        <Button
+          config={{
+            padding: "10px",
+            color: "#dc3545",
+            width: "75%",
+          }}
+          type="button"
+          name="Delete"
+          onClick={deleteItemsHandler.bind(null, props.item.id)}
+        ></Button>
       </div>
     </div>
   );

@@ -1,8 +1,11 @@
-import Meal from "./Meal";
-import styles from "./Meals.module.css";
-const Meals = (props) => {
-  const DUMMY_MEALS = [
+import { useReducer } from "react";
+import MealContext from "./MealContext";
+
+const DEFAULT_STATE = {
+  meals: [
     {
+      amount: 1,
+      added: false,
       id: "m1",
       name: "Pizza",
       description: "Cheesy Pizza on the way",
@@ -11,6 +14,8 @@ const Meals = (props) => {
         "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/Pizza-from-Scratch_EXPS_FT20_8621_F_0505_1_home.jpg",
     },
     {
+      amount: 1,
+      added: false,
       id: "m2",
       name: "Pasta",
       description: "Give yourself a saucy treat",
@@ -19,6 +24,8 @@ const Meals = (props) => {
         "https://pinchofyum.com/wp-content/uploads/Vegan-Vodka-Pasta-Square.jpg",
     },
     {
+      amount: 1,
+      added: false,
       id: "m3",
       name: "Barbecue Burger",
       description: "American, raw, meaty",
@@ -27,6 +34,8 @@ const Meals = (props) => {
         "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/exps28800_UG143377D12_18_1b_RMS.jpg",
     },
     {
+      amount: 1,
+      added: false,
       id: "m4",
       name: "Samosa",
       description: "Potato Filled with love",
@@ -35,6 +44,8 @@ const Meals = (props) => {
         "https://www.indianhealthyrecipes.com/wp-content/uploads/2019/11/samosa-recipe-500x500.jpg",
     },
     {
+      amount: 1,
+      added: false,
       id: "m5",
       name: "Sushi",
       description: "Finest fish and veggies",
@@ -43,6 +54,8 @@ const Meals = (props) => {
         "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Sushi_platter.jpg/1200px-Sushi_platter.jpg",
     },
     {
+      amount: 1,
+      added: false,
       id: "m6",
       name: "Schnitzel",
       description: "Fresh Meat!",
@@ -50,10 +63,41 @@ const Meals = (props) => {
       imageUrl:
         "https://qph.fs.quoracdn.net/main-qimg-9fbe6d471e0412548359a05a80858a7a",
     },
-  ];
-  return DUMMY_MEALS.map((meal) => {
-    return <Meal key={meal.id} meal={meal} />;
-  });
+  ],
 };
 
-export default Meals;
+const mealReducer = (prevState, action) => {
+  const indexOfItem = prevState.meals.findIndex((meal) => {
+    return action.id === meal.id;
+  });
+  const copyArr = [...prevState.meals];
+  if (action.type === "MARK_ADD") {
+    copyArr[indexOfItem].added = true;
+  } else if (action.type === "REMOVE_ADD") {
+    copyArr[indexOfItem].added = false;
+  }
+  return DEFAULT_STATE;
+};
+const MealContextProvider = (props) => {
+  const [mealState, dispatchMeal] = useReducer(mealReducer, DEFAULT_STATE);
+
+  const markAddedHandler = (id) => {
+    dispatchMeal({ type: "MARK_ADD", id: id });
+  };
+
+  const removeAddedHandler = (id) => {
+    dispatchMeal({ type: "REMOVE_ADD", id: id });
+  };
+  const mealContext = {
+    meals: mealState.meals,
+    markAdded: markAddedHandler,
+    removeAdded: removeAddedHandler,
+  };
+  return (
+    <MealContext.Provider value={mealContext}>
+      {props.children}
+    </MealContext.Provider>
+  );
+};
+
+export default MealContextProvider;

@@ -42,3 +42,6 @@ p {
   justify-content: space-between;
   align-items: center;
 }
+.addedToCart {
+  color: #28a745 !important;
+}
