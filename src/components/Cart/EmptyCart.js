@@ -1,3 +1,4 @@
+import useCounter from "../../hooks/use-counter";
 import styles from "./EmptyCart.module.css";
 
 const EmptyCart = (props) => {

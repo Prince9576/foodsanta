@@ -1,69 +1,10 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import MealContext from "./MealContext";
 
-const DEFAULT_STATE = {
-  meals: [
-    {
-      amount: 1,
-      added: false,
-      id: "m1",
-      name: "Pizza",
-      description: "Cheesy Pizza on the way",
-      price: 22.99,
-      imageUrl:
-        "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/Pizza-from-Scratch_EXPS_FT20_8621_F_0505_1_home.jpg",
-    },
-    {
-      amount: 1,
-      added: false,
-      id: "m2",
-      name: "Pasta",
-      description: "Give yourself a saucy treat",
-      price: 16.5,
-      imageUrl:
-        "https://pinchofyum.com/wp-content/uploads/Vegan-Vodka-Pasta-Square.jpg",
-    },
-    {
-      amount: 1,
-      added: false,
-      id: "m3",
-      name: "Barbecue Burger",
-      description: "American, raw, meaty",
-      price: 12.99,
-      imageUrl:
-        "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/exps28800_UG143377D12_18_1b_RMS.jpg",
-    },
-    {
-      amount: 1,
-      added: false,
-      id: "m4",
-      name: "Samosa",
-      description: "Potato Filled with love",
-      price: 18.99,
-      imageUrl:
-        "https://www.indianhealthyrecipes.com/wp-content/uploads/2019/11/samosa-recipe-500x500.jpg",
-    },
-    {
-      amount: 1,
-      added: false,
-      id: "m5",
-      name: "Sushi",
-      description: "Finest fish and veggies",
-      price: 22.99,
-      imageUrl:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Sushi_platter.jpg/1200px-Sushi_platter.jpg",
-    },
-    {
-      amount: 1,
-      added: false,
-      id: "m6",
-      name: "Schnitzel",
-      description: "Fresh Meat!",
-      price: 16.5,
-      imageUrl:
-        "https://qph.fs.quoracdn.net/main-qimg-9fbe6d471e0412548359a05a80858a7a",
-    },
-  ],
+let DEFAULT_STATE = {
+  meals: [],
+  fetching: false,
+  error: null,
 };
 
 const mealReducer = (prevState, action) => {
@@ -73,6 +14,26 @@ const mealReducer = (prevState, action) => {
     });
     return {
       meals: filteredArr,
+    };
+  } else if (action.type === "FETCH_FIRED") {
+    return {
+      meals: [],
+      fetching: true,
+      error: null,
+    };
+  } else if (action.type === "FETCH_SUCCESS") {
+    const val = {
+      meals: action.response,
+      fetching: false,
+      error: null,
+    };
+    DEFAULT_STATE = val;
+    return val;
+  } else if (action.type === "FETCH_ERROR") {
+    return {
+      meals: [],
+      fetching: false,
+      error: action.err,
     };
   } else {
     const indexOfItem = prevState.meals.findIndex((meal) => {
@@ -85,11 +46,47 @@ const mealReducer = (prevState, action) => {
       copyArr[indexOfItem].added = false;
     }
   }
-
-  return DEFAULT_STATE;
+  return {};
 };
 const MealContextProvider = (props) => {
-  const [mealState, dispatchMeal] = useReducer(mealReducer, DEFAULT_STATE);
+  const config = {
+    url: "https://swapi.dev/api/planets/3/55",
+    method: "GET",
+  };
+  const transformFn = (item) => {
+    return {
+      amount: 1,
+      added: false,
+      id: item.id,
+      name: item.title,
+      description: "Fresh Meal on your way!",
+      price: (Math.random() * 100).toFixed(2),
+      imageUrl: item.image,
+    };
+  };
+
+  useEffect(async () => {
+    dispatchMeal({ type: "FETCH_FIRED" });
+    try {
+      const respone = await fetch(config.url);
+      const data = await respone.json();
+      const transformedRes = data.films.map((item) => {
+        return transformFn(item);
+      });
+      console.log("transformedRes", transformedRes);
+      // dispatchMeal({ type: "FETCH_SUCCESS", response: transformedRes });
+    } catch (err) {
+      setTimeout(() => {
+        dispatchMeal({ type: "FETCH_ERROR", err: err });
+      }, 10000);
+    }
+  }, []);
+
+  const [mealState, dispatchMeal] = useReducer(mealReducer, {
+    meals: [],
+    fetching: false,
+    error: null,
+  });
 
   const markAddedHandler = (id) => {
     dispatchMeal({ type: "MARK_ADD", id: id });
@@ -104,6 +101,8 @@ const MealContextProvider = (props) => {
   };
   const mealContext = {
     meals: mealState.meals,
+    fetching: mealState.fetching,
+    error: mealState.error,
     markAdded: markAddedHandler,
     removeAdded: removeAddedHandler,
     searchItems: searchItemHandler,
