@@ -42,6 +42,9 @@ p {
   justify-content: space-between;
   align-items: center;
 }
+.item {
+  flex: 0 0 60%;
+}
 .addedToCart {
   color: #28a745 !important;
 }

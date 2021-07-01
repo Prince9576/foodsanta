@@ -7,6 +7,8 @@ let DEFAULT_STATE = {
   error: null,
 };
 
+const API_KEY = "2c6e0072979140b8954fc0d95fb55c57";
+
 const mealReducer = (prevState, action) => {
   if (action.type === "SEARCH") {
     const filteredArr = DEFAULT_STATE.meals.filter((meal) => {
@@ -39,18 +41,24 @@ const mealReducer = (prevState, action) => {
     const indexOfItem = prevState.meals.findIndex((meal) => {
       return action.id === meal.id;
     });
-    const copyArr = [...prevState.meals];
+    console.log("Added", indexOfItem);
+    const copyArr = {
+      ...prevState,
+      meals: [...prevState.meals],
+    };
+    console.log("Added", copyArr);
     if (action.type === "MARK_ADD") {
-      copyArr[indexOfItem].added = true;
+      copyArr.meals[indexOfItem].added = true;
     } else if (action.type === "REMOVE_ADD") {
-      copyArr[indexOfItem].added = false;
+      copyArr.meals[indexOfItem].added = false;
     }
+    return copyArr;
   }
   return {};
 };
 const MealContextProvider = (props) => {
   const config = {
-    url: "https://swapi.dev/api/planets/3/55",
+    url: `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}`,
     method: "GET",
   };
   const transformFn = (item) => {
@@ -70,15 +78,14 @@ const MealContextProvider = (props) => {
     try {
       const respone = await fetch(config.url);
       const data = await respone.json();
-      const transformedRes = data.films.map((item) => {
+      console.log("Data", data);
+      const transformedRes = data.results.map((item) => {
         return transformFn(item);
       });
-      console.log("transformedRes", transformedRes);
-      // dispatchMeal({ type: "FETCH_SUCCESS", response: transformedRes });
+      dispatchMeal({ type: "FETCH_SUCCESS", response: transformedRes });
     } catch (err) {
-      setTimeout(() => {
-        dispatchMeal({ type: "FETCH_ERROR", err: err });
-      }, 10000);
+      console.log("Error occured", err);
+      dispatchMeal({ type: "FETCH_ERROR", err: err });
     }
   }, []);
 

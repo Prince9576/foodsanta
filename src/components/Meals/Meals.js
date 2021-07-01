@@ -6,10 +6,18 @@ const Meals = (props) => {
   let content;
   const mealsCtx = useContext(MealContext);
   if (mealsCtx.fetching) {
-    content = <p>Loading...</p>;
+    content = (
+      <div className={styles["utility-container"]}>
+        <i className={`fas fa-circle-notch ${styles["loader"]}`}></i>
+      </div>
+    );
   } else {
     if (mealsCtx.error) {
-      content = <p>Something went wrong</p>;
+      content = (
+        <div className={styles["utility-container"]}>
+          <p className={styles["error"]}>Something went wrong...</p>
+        </div>
+      );
     } else {
       content = mealsCtx.meals.map((meal) => {
         return <Meal key={meal.id} meal={meal} />;

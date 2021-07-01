@@ -13,7 +13,7 @@ const Meal = (props) => {
     }
     cartCtx.addItem(props.meal);
     mealCtx.markAdded(props.meal.id);
-    console.log("Added", props.meal);
+    console.log("Added", props);
   };
   useEffect(() => {
     const index = cartCtx.items.findIndex((item) => {
@@ -38,7 +38,7 @@ const Meal = (props) => {
       <img className={styles["meal-img"]} src={props.meal.imageUrl} />
       <hr></hr>
       <div className={styles["flexify"]}>
-        <div>
+        <div className={styles["item"]}>
           <h4>{props.meal.name}</h4>
           <p>{props.meal.description}</p>
         </div>
