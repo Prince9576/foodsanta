@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Button from "../UI/Button/Button";
 import Modal from "../UI/Button/Modal";
-
 import styles from "./Address.module.css";
+import AddressForm from "./AddressForm";
 
 const Address = (props) => {
   const DEFAULT_CONTENT = (
@@ -20,9 +20,19 @@ const Address = (props) => {
   const [addressAdded, setAddressAdded] = useState(false);
   const [content, setContent] = useState(DEFAULT_CONTENT);
 
+  function closeModalHandler() {
+    console.log("Modal Closed");
+    if (!addressAdded) {
+      setContent(DEFAULT_CONTENT);
+    }
+  }
   function addAddressHandler() {
     console.log("Address Button Clicked");
-    const content = <Modal headerTitle="Address Form">A simple Modal</Modal>;
+    const content = (
+      <Modal closeModal={closeModalHandler} headerTitle="Address Form">
+        <AddressForm />
+      </Modal>
+    );
     setContent(content);
   }
 
