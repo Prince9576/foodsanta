@@ -14,10 +14,11 @@
 .form-control input {
   padding: 1rem 10px;
   border: 0;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+  background-color: #efefef;
   width: 90%;
   font-family: "Raleway";
   font-size: 1rem;
+  border-radius: 5px;
 }
 
 .form-control input:focus {
@@ -34,7 +35,25 @@
 }
 
 .form-control label {
-  display: block;
+  display: inline-block;
   font-weight: 600;
   margin-bottom: 6px;
+}
+.important {
+  color: red;
+  font-size: 8px;
+  margin-left: 4px;
+}
+.indicator {
+  color: red;
+  font-weight: 600;
+}
+
+.indicator .important {
+  margin-right: 4px;
+  margin-left: 0 !important;
+}
+
+.btn-margin {
+  margin-bottom: 2rem;
 }
