@@ -1,4 +1,6 @@
 import { useEffect, useReducer } from "react";
+import DUMMY_MEALS from "../config/dummy-meals";
+import configration from "../config/request-config";
 import MealContext from "./MealContext";
 
 let DEFAULT_STATE = {
@@ -76,12 +78,18 @@ const MealContextProvider = (props) => {
   useEffect(async () => {
     dispatchMeal({ type: "FETCH_FIRED" });
     try {
-      const respone = await fetch(config.url);
-      const data = await respone.json();
-      console.log("Data", data);
-      const transformedRes = data.results.map((item) => {
-        return transformFn(item);
-      });
+      let transformedRes;
+      if (configration.fetchDummyData) {
+        transformedRes = DUMMY_MEALS;
+      } else {
+        const respone = await fetch(config.url);
+        const data = await respone.json();
+        console.log("Data", data);
+        transformedRes = data.results.map((item) => {
+          return transformFn(item);
+        });
+      }
+
       dispatchMeal({ type: "FETCH_SUCCESS", response: transformedRes });
     } catch (err) {
       console.log("Error occured", err);
