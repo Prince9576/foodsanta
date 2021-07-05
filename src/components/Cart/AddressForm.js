@@ -1,7 +1,32 @@
+import useInput from "../../hooks/use-input";
 import Button from "../UI/Button/Button";
 import styles from "./AddressForm.module.css";
 
 const AddressForm = (props) => {
+  const {
+    enteredValue: enteredQuarter,
+    isValid: isQuarterValid,
+    hasError: hasQuarterError,
+    nameChangeHandler: quarterChangeHandler,
+    blurChangeHandler: quarterBlurChangeHandler,
+    reset: resetQuarter,
+  } = useInput((value) => {
+    return value.trim().length < 10;
+  });
+
+  const {
+    enteredValue: enteredApartment,
+    isValid: isApartmentValid,
+    hasError: hasApartmentError,
+    nameChangeHandler: apartmentChangeHandler,
+    blurChangeHandler: apartmentBlurChangeHandler,
+    reset: resetApartment,
+  } = useInput((value) => {
+    return value && value.trim() !== "" && value.trim().length < 100;
+  });
+
+  const quarterClass = hasQuarterError ? styles.invalid : "";
+  const apartmentClass = hasApartmentError ? styles.invalid : "";
   const importantMarkup = (
     <sup className={styles.important}>
       <i className="fas fa-asterisk"></i>
@@ -10,18 +35,31 @@ const AddressForm = (props) => {
   const addAddressHandler = (event) => {
     event.preventDefault();
     console.log("Add Address Handler");
+    resetQuarter();
   };
   return (
     <form className={styles["form"]}>
       <div className={`${styles["form-group"]} ${styles.two}`}>
         <div className={styles["form-control"]}>
           <label htmlFor="quarter">Quarter Number</label>
-          <input type="text" id="quarter" placeholder="Ex : 102"></input>
+          <input
+            className={quarterClass}
+            value={enteredQuarter}
+            onChange={quarterChangeHandler}
+            onBlur={quarterBlurChangeHandler}
+            type="text"
+            id="quarter"
+            placeholder="Ex : 102"
+          ></input>
         </div>
         <div className={styles["form-control"]}>
           <label htmlFor="apartment">Building/Apartment Name</label>
           {importantMarkup}
           <input
+            className={apartmentClass}
+            value={enteredApartment}
+            onChange={apartmentChangeHandler}
+            onBlur={apartmentBlurChangeHandler}
             type="text"
             id="apartment"
             placeholder="Ex : Maheshwari Apartment"
