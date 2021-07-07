@@ -4,61 +4,18 @@
   justify-content: space-between;
 }
 
-.form-control {
-}
-
 .form-action {
   margin-top: 2.5rem;
 }
 
-.form-control input {
-  padding: 1rem 10px;
-  border: 0;
-  background-color: #efefef;
-  width: 90%;
-  font-family: "Raleway";
-  font-size: 1rem;
-  border-radius: 5px;
-}
-
-.form-control input:focus {
-  outline: none;
-  border: 0;
-}
-
-.two .form-control {
+.two input {
   flex: 0 0 48%;
 }
 
-.three .form-control {
+.three input {
   flex: 0 0 30%;
-}
-
-.form-control label {
-  display: inline-block;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-.important {
-  color: red;
-  font-size: 8px;
-  margin-left: 4px;
-}
-.indicator {
-  color: red;
-  font-weight: 600;
-}
-
-.indicator .important {
-  margin-right: 4px;
-  margin-left: 0 !important;
 }
 
 .btn-margin {
   margin-bottom: 2rem;
-}
-
-.invalid {
-  border: 1px solid red !important;
-  background-color: rgb(255 236 236) !important;
 }

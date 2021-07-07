@@ -1,11 +1,13 @@
 const { useState } = require("react");
 
 const useInput = (validator) => {
+  console.log("Validator", validator);
   const [enteredValue, setEnteredValue] = useState("");
   const [isTouched, setIsTouched] = useState(false);
   const isValid = validator(enteredValue);
   const hasError = isTouched && !isValid;
 
+  console.log("has error", enteredValue, isTouched, isValid, hasError);
   const nameChangeHandler = (event) => {
     setEnteredValue(event.target.value);
   };

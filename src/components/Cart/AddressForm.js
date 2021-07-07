@@ -1,103 +1,100 @@
-import useInput from "../../hooks/use-input";
 import Button from "../UI/Button/Button";
+import Input from "../UI/Button/Input";
 import styles from "./AddressForm.module.css";
 
 const AddressForm = (props) => {
-  const {
-    enteredValue: enteredQuarter,
-    isValid: isQuarterValid,
-    hasError: hasQuarterError,
-    nameChangeHandler: quarterChangeHandler,
-    blurChangeHandler: quarterBlurChangeHandler,
-    reset: resetQuarter,
-  } = useInput((value) => {
-    return value.trim().length < 10;
-  });
-
-  const {
-    enteredValue: enteredApartment,
-    isValid: isApartmentValid,
-    hasError: hasApartmentError,
-    nameChangeHandler: apartmentChangeHandler,
-    blurChangeHandler: apartmentBlurChangeHandler,
-    reset: resetApartment,
-  } = useInput((value) => {
-    return value && value.trim() !== "" && value.trim().length < 100;
-  });
-
-  const quarterClass = hasQuarterError ? styles.invalid : "";
-  const apartmentClass = hasApartmentError ? styles.invalid : "";
-  const importantMarkup = (
-    <sup className={styles.important}>
-      <i className="fas fa-asterisk"></i>
-    </sup>
-  );
   const addAddressHandler = (event) => {
     event.preventDefault();
     console.log("Add Address Handler");
-    resetQuarter();
   };
+
   return (
     <form className={styles["form"]}>
-      <div className={`${styles["form-group"]} ${styles.two}`}>
-        <div className={styles["form-control"]}>
-          <label htmlFor="quarter">Quarter Number</label>
-          <input
-            className={quarterClass}
-            value={enteredQuarter}
-            onChange={quarterChangeHandler}
-            onBlur={quarterBlurChangeHandler}
-            type="text"
-            id="quarter"
-            placeholder="Ex : 102"
-          ></input>
-        </div>
-        <div className={styles["form-control"]}>
-          <label htmlFor="apartment">Building/Apartment Name</label>
-          {importantMarkup}
-          <input
-            className={apartmentClass}
-            value={enteredApartment}
-            onChange={apartmentChangeHandler}
-            onBlur={apartmentBlurChangeHandler}
-            type="text"
-            id="apartment"
-            placeholder="Ex : Maheshwari Apartment"
-          ></input>
-        </div>
+      <div className={styles["form-group"]}>
+        <Input
+          htmlFor="quarter"
+          label="Qr/Building No"
+          type="text"
+          placeholder="Ex : 102"
+          isImportant={false}
+          group="two"
+          validationFn={(value) => {
+            return value.trim().length < 10;
+          }}
+        />
+
+        <Input
+          htmlFor="apartment"
+          label="Building/Apartment Name"
+          type="text"
+          placeholder="Ex : Maheshwari Apartment"
+          isImportant={true}
+          group="two"
+          validationFn={(value) => {
+            return value && value.trim() !== "" && value.trim().length < 100;
+          }}
+        />
       </div>
 
-      <div className={`${styles["form-group"]} ${styles.two}`}>
-        <div className={styles["form-control"]}>
-          <label htmlFor="street">Street Number</label>
-          {importantMarkup}
-          <input type="number" id="street" placeholder="Ex : 102"></input>
-        </div>
-        <div className={styles["form-control"]}>
-          <label htmlFor="sector">Sector</label>
-          <input type="text" id="sector" placeholder="Ex : Sector 58"></input>
-        </div>
+      <div className={styles["form-group"]}>
+        <Input
+          htmlFor="street"
+          label="Street Number"
+          type="text"
+          placeholder="Ex : 14"
+          isImportant={false}
+          group="two"
+          validationFn={(value) => {
+            return value.trim().length < 10;
+          }}
+        />
+        <Input
+          htmlFor="sector"
+          label="Sector"
+          type="text"
+          placeholder="Ex : Sector 58"
+          isImportant={true}
+          group="two"
+          validationFn={(value) => {
+            return value && value.trim() !== "" && value.trim().length < 100;
+          }}
+        />
       </div>
 
-      <div className={`${styles["form-group"]} ${styles.three}`}>
-        <div className={styles["form-control"]}>
-          <label htmlFor="city">City</label>
-          {importantMarkup}
-          <input type="text" id="city" placeholder="Ex : Mumbai"></input>
-        </div>
-        <div className={styles["form-control"]}>
-          <label htmlFor="state">State</label>
-          {importantMarkup}
-          <input type="text" id="state" placeholder="Ex : Maharashtra"></input>
-        </div>
-        <div className={styles["form-control"]}>
-          <label htmlFor="zip">Zip</label>
-          {importantMarkup}
-          <input type="number" id="zip" placeholder="Ex : 829440"></input>
-        </div>
-      </div>
-      <div className={styles.indicator}>
-        {importantMarkup} fields are required.
+      <div className={styles["form-group"]}>
+        <Input
+          htmlFor="city"
+          label="City"
+          type="text"
+          placeholder="Ex : Mumbai"
+          isImportant={true}
+          group="three"
+          validationFn={(value) => {
+            return value && value.trim() !== "" && value.trim().length < 100;
+          }}
+        />
+        <Input
+          htmlFor="state"
+          label="State"
+          type="text"
+          placeholder="Ex : Maharashtra"
+          isImportant={true}
+          group="three"
+          validationFn={(value) => {
+            return value && value.trim() !== "" && value.trim().length < 100;
+          }}
+        />
+        <Input
+          htmlFor="zip"
+          label="Zip"
+          type="text"
+          placeholder="Ex : 827009"
+          isImportant={true}
+          group="three"
+          validationFn={(value) => {
+            return value && value.trim() !== "" && value.trim().length < 100;
+          }}
+        />
       </div>
       <div className={styles["form-action"]}>
         <Button
