@@ -11,7 +11,7 @@
   cursor: pointer;
 }
 
-button:focus {
+button:active {
   animation: tap 0.2s ease-in-out;
 }
 
