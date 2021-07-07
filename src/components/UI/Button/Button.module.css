@@ -10,3 +10,19 @@
   letter-spacing: 1px;
   cursor: pointer;
 }
+
+button:focus {
+  animation: tap 0.2s ease-in-out;
+}
+
+@keyframes tap {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
