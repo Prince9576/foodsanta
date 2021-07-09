@@ -1,6 +1,7 @@
 import styles from "./Button.module.css";
 
 const Button = (props) => {
+  console.log("Button", props);
   return (
     <button
       style={
@@ -12,6 +13,7 @@ const Button = (props) => {
             }
           : {}
       }
+      disabled={props.disabled}
       className={styles.button}
       type={props.type}
       onClick={props.onClick}

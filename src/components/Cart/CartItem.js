@@ -3,6 +3,7 @@ import CartContext from "../../store/CartContext";
 import MealContext from "../../store/MealContext";
 import Button from "../UI/Button/Button";
 import styles from "./CartItem.module.css";
+import { BrowserView, MobileView } from "react-device-detect";
 
 const CartItem = (props) => {
   const cartCtx = useContext(CartContext);
@@ -39,16 +40,28 @@ const CartItem = (props) => {
           {" "}
           ${(+(props.item.price * selectedNumberOfItems)).toFixed(2)}
         </div>
-        <Button
-          config={{
-            padding: "10px",
-            color: "#dc3545",
-            width: "75%",
+        <BrowserView>
+          <Button
+            config={{
+              padding: "10px",
+              color: "#dc3545",
+              width: "75%",
+            }}
+            type="button"
+            name="Delete"
+            onClick={deleteItemsHandler.bind(null, props.item.id)}
+          ></Button>
+        </BrowserView>
+        <MobileView
+          style={{
+            display: "flex",
           }}
-          type="button"
-          name="Delete"
-          onClick={deleteItemsHandler.bind(null, props.item.id)}
-        ></Button>
+        >
+          <i
+            className={`fas fa-trash-alt ${styles["delete-icon"]}`}
+            onClick={deleteItemsHandler.bind(null, props.item.id)}
+          ></i>
+        </MobileView>
       </div>
     </div>
   );

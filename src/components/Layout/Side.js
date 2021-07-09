@@ -18,7 +18,7 @@ const Side = (props) => {
   }, [cartCtx]);
 
   return (
-    <div>
+    <div className={styles["side-wrapper"]}>
       <h1 className={styles.title}>My Orders</h1>
       <hr></hr>
       {isCartEmpty && <EmptyCart />}

@@ -34,3 +34,21 @@ select.form-item {
 .price-value {
   margin-bottom: 1.5rem;
 }
+.delete-icon {
+  margin: 0 auto;
+  color: red;
+  font-size: 1.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .image {
+    height: 5rem;
+    width: 5rem;
+  }
+  .price {
+    font-size: 1.2rem;
+  }
+  .form-item {
+    font-size: 1rem;
+  }
+}

@@ -7,3 +7,12 @@ h3 {
 .empty-cart {
   margin-top: 3rem;
 }
+
+@media screen and (max-width: 768px) {
+  .empty-cart img {
+    max-width: 20rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+  }
+}

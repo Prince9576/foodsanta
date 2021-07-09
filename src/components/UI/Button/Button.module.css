@@ -26,3 +26,8 @@ button:active {
     transform: scale(1);
   }
 }
+
+button[disabled] {
+  background-color: #ccc !important;
+  cursor: not-allowed;
+}

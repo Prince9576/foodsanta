@@ -1,17 +1,35 @@
+import { useRef } from "react";
 import Button from "../UI/Button/Button";
 import Input from "../UI/Button/Input";
 import styles from "./AddressForm.module.css";
 
 const AddressForm = (props) => {
+  console.log(props);
+  const quarterRef = useRef();
+  const apartmentRef = useRef();
+  const streetRef = useRef();
+  const sectorRef = useRef();
+  const cityRef = useRef();
+  const stateRef = useRef();
+  const zipRef = useRef();
   const addAddressHandler = (event) => {
     event.preventDefault();
-    console.log("Add Address Handler");
+    props.addressAdded({
+      quarter: quarterRef.current.value,
+      apartment: apartmentRef.current.value,
+      street: streetRef.current.value,
+      sector: sectorRef.current.value,
+      city: cityRef.current.value,
+      state: stateRef.current.value,
+      zip: zipRef.current.value,
+    });
   };
 
   return (
     <form className={styles["form"]}>
       <div className={styles["form-group"]}>
         <Input
+          ref={quarterRef}
           htmlFor="quarter"
           label="Qr/Building No"
           type="text"
@@ -24,6 +42,7 @@ const AddressForm = (props) => {
         />
 
         <Input
+          ref={apartmentRef}
           htmlFor="apartment"
           label="Building/Apartment Name"
           type="text"
@@ -38,6 +57,7 @@ const AddressForm = (props) => {
 
       <div className={styles["form-group"]}>
         <Input
+          ref={streetRef}
           htmlFor="street"
           label="Street Number"
           type="text"
@@ -49,6 +69,7 @@ const AddressForm = (props) => {
           }}
         />
         <Input
+          ref={sectorRef}
           htmlFor="sector"
           label="Sector"
           type="text"
@@ -63,6 +84,7 @@ const AddressForm = (props) => {
 
       <div className={styles["form-group"]}>
         <Input
+          ref={cityRef}
           htmlFor="city"
           label="City"
           type="text"
@@ -74,6 +96,7 @@ const AddressForm = (props) => {
           }}
         />
         <Input
+          ref={stateRef}
           htmlFor="state"
           label="State"
           type="text"
@@ -85,6 +108,7 @@ const AddressForm = (props) => {
           }}
         />
         <Input
+          ref={zipRef}
           htmlFor="zip"
           label="Zip"
           type="text"

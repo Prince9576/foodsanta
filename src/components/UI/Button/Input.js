@@ -1,7 +1,8 @@
+import React, { useImperativeHandle } from "react";
 import useInput from "../../../hooks/use-input";
 import styles from "./input.module.css";
 
-const Input = (props) => {
+const Input = React.forwardRef((props, ref) => {
   const {
     enteredValue,
     isValid,
@@ -11,6 +12,14 @@ const Input = (props) => {
     reset,
   } = useInput((value) => {
     return props.validationFn(value);
+  });
+
+  useImperativeHandle(ref, () => {
+    return {
+      isValid,
+      reset,
+      value: enteredValue,
+    };
   });
 
   const inputClass = hasError ? styles.invalid : "";
@@ -38,6 +47,6 @@ const Input = (props) => {
       ></input>
     </div>
   );
-};
+});
 
 export default Input;

@@ -14,7 +14,7 @@ const Address = (props) => {
       }}
       type="button"
       name="Add Address"
-      onClick={addAddressHandler}
+      onClick={addAddressClickHandler}
     />
   );
   const [addressAdded, setAddressAdded] = useState(false);
@@ -26,27 +26,35 @@ const Address = (props) => {
       setContent(DEFAULT_CONTENT);
     }
   }
-  function addAddressHandler() {
+  function addAddressHandler(event) {
+    setAddressAdded(true);
+    setContent(
+      <div>
+        <h5 className={styles.heading}>Delivery Address</h5>
+        <div className={styles.address}>
+          <h1
+            className={styles.heading}
+          >{`${event.quarter}, ${event.apartment}`}</h1>
+          <h1
+            className={styles.heading}
+          >{`Street ${event.street}, Sector ${event.sector}`}</h1>
+          <h1
+            className={styles.heading}
+          >{`${event.city}, ${event.state}, ${event.zip}`}</h1>
+        </div>
+      </div>
+    );
+  }
+  function addAddressClickHandler() {
     console.log("Address Button Clicked");
     const content = (
       <Modal closeModal={closeModalHandler} headerTitle="Address Form">
-        <AddressForm />
+        <AddressForm addressAdded={addAddressHandler} />
       </Modal>
     );
     setContent(content);
   }
 
-  if (addressAdded) {
-    content = (
-      <div>
-        <h5 className={styles.heading}>Delivery Address</h5>
-        <div className={styles.address}>
-          <h1 className={styles.heading}>1341, Morris Street</h1>
-          <h1 className={styles.heading}>America, 876300</h1>
-        </div>
-      </div>
-    );
-  }
   return <div className={styles["address-container"]}>{content}</div>;
 };
 

@@ -21,3 +21,14 @@
   transform: translateY(-50%);
   color: gray;
 }
+
+@media screen and (max-width: 768px) {
+  .search-container input {
+    margin: 0 auto;
+    display: block;
+    width: 75% !important;
+  }
+  .search-icon {
+    right: 3rem;
+  }
+}
