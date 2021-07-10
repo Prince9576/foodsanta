@@ -2,6 +2,7 @@ import { useRef } from "react";
 import Button from "../UI/Button/Button";
 import Input from "../UI/Button/Input";
 import styles from "./AddressForm.module.css";
+import { BrowserView } from "react-device-detect";
 
 const AddressForm = (props) => {
   console.log(props);
@@ -14,14 +15,15 @@ const AddressForm = (props) => {
   const zipRef = useRef();
   const addAddressHandler = (event) => {
     event.preventDefault();
+
     props.addressAdded({
-      quarter: quarterRef.current.value,
-      apartment: apartmentRef.current.value,
-      street: streetRef.current.value,
-      sector: sectorRef.current.value,
-      city: cityRef.current.value,
-      state: stateRef.current.value,
-      zip: zipRef.current.value,
+      quarter: quarterRef && quarterRef.current && quarterRef.current.value,
+      apartment: apartmentRef && apartmentRef.current && apartmentRef.current.value,
+      street: streetRef && streetRef.current && streetRef.current.value,
+      sector: sectorRef && sectorRef.current && sectorRef.current.value,
+      city: cityRef && cityRef.current && cityRef.current.value,
+      state: stateRef && stateRef.current && stateRef.current.value,
+      zip: zipRef && zipRef.current && zipRef.current.value,
     });
   };
 
@@ -55,33 +57,35 @@ const AddressForm = (props) => {
         />
       </div>
 
-      <div className={styles["form-group"]}>
-        <Input
-          ref={streetRef}
-          htmlFor="street"
-          label="Street Number"
-          type="text"
-          placeholder="Ex : 14"
-          isImportant={false}
-          group="two"
-          validationFn={(value) => {
-            return value.trim().length < 10;
-          }}
-        />
-        <Input
-          ref={sectorRef}
-          htmlFor="sector"
-          label="Sector"
-          type="text"
-          placeholder="Ex : Sector 58"
-          isImportant={true}
-          group="two"
-          validationFn={(value) => {
-            return value && value.trim() !== "" && value.trim().length < 100;
-          }}
-        />
-      </div>
+      <BrowserView>
+        <div className={styles["form-group"]}>
+          <Input
+            ref={streetRef}
+            htmlFor="street"
+            label="Street Number"
+            type="text"
+            placeholder="Ex : 14"
+            isImportant={false}
+            group="two"
+            validationFn={(value) => {
+              return value.trim().length < 10;
+            }}
+          />
+          <Input
+            ref={sectorRef}
+            htmlFor="sector"
+            label="Sector"
+            type="text"
+            placeholder="Ex : Sector 58"
+            isImportant={true}
+            group="two"
+            validationFn={(value) => {
+              return value && value.trim() !== "" && value.trim().length < 100;
+            }}
+          />
+        </div>
 
+      </BrowserView>
       <div className={styles["form-group"]}>
         <Input
           ref={cityRef}

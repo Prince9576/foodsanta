@@ -19,3 +19,9 @@
 .btn-margin {
   margin-bottom: 2rem;
 }
+
+@media screen and (max-width: 768px) {
+  .form-group {
+    display: block;
+  }
+}

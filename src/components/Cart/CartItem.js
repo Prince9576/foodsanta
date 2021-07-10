@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { React, useContext, useState } from "react";
 import CartContext from "../../store/CartContext";
 import MealContext from "../../store/MealContext";
 import Button from "../UI/Button/Button";
@@ -24,44 +24,59 @@ const CartItem = (props) => {
       <img className={styles.image} src={props.item.imageUrl} />
       <div className={styles.form}>
         <div className={styles["form-item"]}>{props.item.name}</div>
-        <select
-          value={selectedNumberOfItems}
-          onChange={itemsChangeHandler}
-          className={styles["form-item"]}
-        >
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-        </select>
+        {
+          props.configurable && <select
+            value={selectedNumberOfItems}
+            onChange={itemsChangeHandler}
+            className={styles["form-item"]}
+          >
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        }
+
+        {!props.configurable && <div className={styles.amount}>
+          <i className="fas fa-times"></i>
+          {(cartCtx.items.find((i) => {
+            return props.item.id === i.id;
+          })).amount}
+        </div>}
+
       </div>
       <div className={styles.price}>
         <div className={styles["price-value"]}>
           {" "}
           ${(+(props.item.price * selectedNumberOfItems)).toFixed(2)}
         </div>
-        <BrowserView>
-          <Button
-            config={{
-              padding: "10px",
-              color: "#dc3545",
-              width: "75%",
-            }}
-            type="button"
-            name="Delete"
-            onClick={deleteItemsHandler.bind(null, props.item.id)}
-          ></Button>
-        </BrowserView>
-        <MobileView
-          style={{
-            display: "flex",
-          }}
-        >
-          <i
-            className={`fas fa-trash-alt ${styles["delete-icon"]}`}
-            onClick={deleteItemsHandler.bind(null, props.item.id)}
-          ></i>
-        </MobileView>
+        {props.configurable &&
+          <div>
+            <BrowserView>
+              <Button
+                config={{
+                  padding: "10px",
+                  color: "#dc3545",
+                  width: "75%",
+                }}
+                type="button"
+                name="Delete"
+                onClick={deleteItemsHandler.bind(null, props.item.id)}
+              ></Button>
+            </BrowserView>
+            <MobileView
+              style={{
+                display: "flex",
+              }}
+            >
+              <i
+                className={`fas fa-trash-alt ${styles["delete-icon"]}`}
+                onClick={deleteItemsHandler.bind(null, props.item.id)}
+              ></i>
+            </MobileView>
+          </div>
+        }
+
       </div>
     </div>
   );

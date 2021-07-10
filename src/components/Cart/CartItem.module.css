@@ -30,6 +30,15 @@ select.form-item {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  font-family: 'Roboto' !important;
+  letter-spacing: 1px;
+}
+.amount {
+  display: flex;
+  align-items: flex-end;
+}
+.amount i {
+  margin-right: 10px;
 }
 .price-value {
   margin-bottom: 1.5rem;
@@ -47,6 +56,11 @@ select.form-item {
   }
   .price {
     font-size: 1.2rem;
+    flex: 0 0 30%;
+    align-items: flex-end;
+  }
+  .form {
+    flex: 0 0 35%;
   }
   .form-item {
     font-size: 1rem;

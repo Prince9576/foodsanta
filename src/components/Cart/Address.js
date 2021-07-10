@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Button from "../UI/Button/Button";
 import Modal from "../UI/Button/Modal";
 import styles from "./Address.module.css";
 import AddressForm from "./AddressForm";
+import AddressContext from "../../store/AddressContext";
 
 const Address = (props) => {
+  const addressCtx = useContext(AddressContext);
   const DEFAULT_CONTENT = (
     <Button
       config={{
@@ -28,6 +30,7 @@ const Address = (props) => {
   }
   function addAddressHandler(event) {
     setAddressAdded(true);
+    addressCtx.addAddress(event);
     setContent(
       <div>
         <h5 className={styles.heading}>Delivery Address</h5>
@@ -35,9 +38,9 @@ const Address = (props) => {
           <h1
             className={styles.heading}
           >{`${event.quarter}, ${event.apartment}`}</h1>
-          <h1
+          {event.sector && event.street && <h1
             className={styles.heading}
-          >{`Street ${event.street}, Sector ${event.sector}`}</h1>
+          >{`Street ${event.street}, Sector ${event.sector}`}</h1>}
           <h1
             className={styles.heading}
           >{`${event.city}, ${event.state}, ${event.zip}`}</h1>

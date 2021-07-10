@@ -5,6 +5,7 @@
   width: 100%;
   z-index: 10;
   overflow: hidden;
+  margin-top: -1rem;
 }
 .modal {
   min-width: 400px;
@@ -38,4 +39,11 @@
   font-size: 1.5rem;
   cursor: pointer;
   color: rgba(0, 0, 0, 0.8);
+}
+
+@media screen and (max-width:768px) {
+  .modal {
+    min-width: 80%;
+    padding: 1rem;
+  }
 }

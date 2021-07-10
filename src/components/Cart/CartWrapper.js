@@ -1,14 +1,24 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CartContext from "../../store/CartContext";
 import Button from "../UI/Button/Button";
 import Address from "./Address";
 import CartList from "./CartList";
 import styles from "./CartWrapper.module.css";
+import AddressContext from "../../store/AddressContext";
+import Modal from "../UI/Button/Modal";
+import OrderSuccessful from "./OrderSuccessful";
 
 const CartWrapper = (props) => {
+  const [modal, setModal] = useState(false);
   const DELIVERY_CHARGES = 15.0;
   const cartCtx = useContext(CartContext);
-  const checkoutHandler = () => {};
+  const addressCtx = useContext(AddressContext);
+  const closeModalHandler = () => {
+    setModal(false);
+  }
+  const checkoutHandler = () => {
+    setModal(<Modal closeModal={closeModalHandler} headerTitle="Order Placed Successfully"><OrderSuccessful></OrderSuccessful></Modal>)
+  };
 
   return (
     <div className={styles["cart-container"]}>
@@ -24,7 +34,7 @@ const CartWrapper = (props) => {
         </div>
       </div>
       <hr className={styles["line"]}></hr>
-      <CartList />
+      <CartList configurable={true} />
       <hr className={styles["line"]}></hr>
       <div className={styles["total-container"]}>
         <div className={styles["total-item"]}>
@@ -47,7 +57,8 @@ const CartWrapper = (props) => {
         </div>
       </div>
       <hr className={styles["line"]}></hr>
-      <Button type="submit" name="Checkout" onClick={checkoutHandler} />
+      <Button disabled={!addressCtx.isAddressAvailable} type="submit" name="Place Order" onClick={checkoutHandler} />
+      {modal && modal}
     </div>
   );
 };

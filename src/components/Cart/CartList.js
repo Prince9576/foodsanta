@@ -7,12 +7,13 @@ const CartList = (props) => {
   const cartCtx = useContext(CartContext);
   const [cartList, setCartList] = useState([]);
   useEffect(() => {
+    console.log("Cart ctx", cartCtx)
     setCartList(cartCtx.items);
   }, [cartCtx]);
   return (
     <div className={styles["cart-list"]}>
       {cartList.map((item) => {
-        return <CartItem key={item.id} item={item} />;
+        return <CartItem configurable={props.configurable} key={item.id} item={item} />;
       })}
     </div>
   );
