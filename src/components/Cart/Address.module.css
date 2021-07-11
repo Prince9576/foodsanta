@@ -8,3 +8,9 @@
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
+
+@media screen and (max-width: 768px) {
+  .address {
+    font-size: 0.85rem;
+  }
+}

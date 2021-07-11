@@ -8,7 +8,10 @@ const ModalNode = (props) => {
       <div onClick={props.closeModal} className={styles.overlay}></div>
       <div className={styles.modal}>
         <div className={styles.header}>
-          <h2 className={styles.headerTitle}>{props.headerTitle}</h2>
+          <div className={styles["header-layer"]}>
+            <h2 className={styles.headerTitle}>{props.headerTitle}</h2>
+            {props.iconsMarkup && props.iconsMarkup}
+          </div>
           <i
             onClick={props.closeModal}
             className={`fas fa-times ${styles.close}`}
@@ -28,6 +31,7 @@ const Modal = (props) => {
           closeModal={props.closeModal}
           headerTitle={props.headerTitle}
           children={props.children}
+          iconsMarkup={props.iconsMarkup}
         />,
         document.getElementById("modal-root")
       )}

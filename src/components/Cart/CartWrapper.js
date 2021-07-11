@@ -7,23 +7,27 @@ import styles from "./CartWrapper.module.css";
 import AddressContext from "../../store/AddressContext";
 import Modal from "../UI/Button/Modal";
 import OrderSuccessful from "./OrderSuccessful";
+import MealContext from "../../store/MealContext";
 
 const CartWrapper = (props) => {
   const [modal, setModal] = useState(false);
   const DELIVERY_CHARGES = 15.0;
   const cartCtx = useContext(CartContext);
   const addressCtx = useContext(AddressContext);
+  const mealCtx = useContext(MealContext);
   const closeModalHandler = () => {
+    cartCtx.clearCart();
+    mealCtx.clearAdded();
     setModal(false);
   }
   const checkoutHandler = () => {
-    setModal(<Modal closeModal={closeModalHandler} headerTitle="Order Placed Successfully"><OrderSuccessful></OrderSuccessful></Modal>)
+    setModal(<Modal iconsMarkup={<i style={{ marginLeft: '7px', color: 'limegreen', fontSize: '1.2rem' }} className="fas fa-check-circle"></i>} closeModal={closeModalHandler} headerTitle="Order Placed"><OrderSuccessful></OrderSuccessful></Modal>)
   };
 
   return (
     <div className={styles["cart-container"]}>
       <Address />
-      <div className={styles["info-list"]}>
+      {addressCtx.isAddressAvailable && <div className={styles["info-list"]}>
         <div className={styles["info-item"]}>
           <i className="far fa-clock"></i>
           <span>48 mins</span>
@@ -32,7 +36,7 @@ const CartWrapper = (props) => {
           <i className="fas fa-map-marker-alt"></i>
           <span>4 kms</span>
         </div>
-      </div>
+      </div>}
       <hr className={styles["line"]}></hr>
       <CartList configurable={true} />
       <hr className={styles["line"]}></hr>

@@ -22,7 +22,9 @@ const CartItem = (props) => {
   return (
     <div className={styles["cart-item"]}>
       <img className={styles.image} src={props.item.imageUrl} />
-      <div className={styles.form}>
+      <div style={{
+        flex: props.configurable ? '0 0 45%' : '0 0 35%'
+      }} className={styles.form}>
         <div className={styles["form-item"]}>{props.item.name}</div>
         {
           props.configurable && <select

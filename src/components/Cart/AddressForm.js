@@ -1,10 +1,12 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
 import Button from "../UI/Button/Button";
 import Input from "../UI/Button/Input";
 import styles from "./AddressForm.module.css";
 import { BrowserView } from "react-device-detect";
+import AddressContext from "../../store/AddressContext";
 
 const AddressForm = (props) => {
+  const addressCtx = useContext(AddressContext);
   console.log(props);
   const quarterRef = useRef();
   const apartmentRef = useRef();
@@ -14,9 +16,7 @@ const AddressForm = (props) => {
   const stateRef = useRef();
   const zipRef = useRef();
   const addAddressHandler = (event) => {
-    event.preventDefault();
-
-    props.addressAdded({
+    const addressObj = {
       quarter: quarterRef && quarterRef.current && quarterRef.current.value,
       apartment: apartmentRef && apartmentRef.current && apartmentRef.current.value,
       street: streetRef && streetRef.current && streetRef.current.value,
@@ -24,7 +24,12 @@ const AddressForm = (props) => {
       city: cityRef && cityRef.current && cityRef.current.value,
       state: stateRef && stateRef.current && stateRef.current.value,
       zip: zipRef && zipRef.current && zipRef.current.value,
-    });
+    }
+    addressCtx.addAddress(addressObj);
+    event.preventDefault();
+
+    props.addressAdded(addressObj);
+
   };
 
   return (

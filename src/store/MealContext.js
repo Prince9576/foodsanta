@@ -4,9 +4,10 @@ const MealContext = React.createContext({
   meals: [],
   fetching: false,
   error: null,
-  markAdded: () => {},
-  removeAdded: () => {},
-  searchItems: () => {},
+  markAdded: () => { },
+  removeAdded: () => { },
+  searchItems: () => { },
+  clearAdded: () => { }
 });
 
 export default MealContext;

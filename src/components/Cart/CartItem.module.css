@@ -60,7 +60,7 @@ select.form-item {
     align-items: flex-end;
   }
   .form {
-    flex: 0 0 35%;
+    flex: 0 0 35% !important;
   }
   .form-item {
     font-size: 1rem;

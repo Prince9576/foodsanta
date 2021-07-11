@@ -30,7 +30,6 @@ const Address = (props) => {
   }
   function addAddressHandler(event) {
     setAddressAdded(true);
-    addressCtx.addAddress(event);
     setContent(
       <div>
         <h5 className={styles.heading}>Delivery Address</h5>

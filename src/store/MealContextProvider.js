@@ -39,6 +39,16 @@ const mealReducer = (prevState, action) => {
       fetching: false,
       error: action.err,
     };
+  } else if (action.type === "CLEAR_ADD") {
+    prevState.meals.forEach((meal) => {
+      meal.added = false;
+    });
+    const newMeals = [...prevState.meals];
+    return {
+      meals: newMeals,
+      fetching: false,
+      error: prevState.error
+    }
   } else {
     const indexOfItem = prevState.meals.findIndex((meal) => {
       return action.id === meal.id;
@@ -114,6 +124,10 @@ const MealContextProvider = (props) => {
   const searchItemHandler = (word) => {
     dispatchMeal({ type: "SEARCH", word: word });
   };
+
+  const clearAddedHandler = () => {
+    dispatchMeal({ type: "CLEAR_ADD" })
+  }
   const mealContext = {
     meals: mealState.meals,
     fetching: mealState.fetching,
@@ -121,6 +135,7 @@ const MealContextProvider = (props) => {
     markAdded: markAddedHandler,
     removeAdded: removeAddedHandler,
     searchItems: searchItemHandler,
+    clearAdded: clearAddedHandler
   };
   return (
     <MealContext.Provider value={mealContext}>

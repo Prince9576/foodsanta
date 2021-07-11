@@ -32,8 +32,8 @@ const Meal = (props) => {
         {mealAdded ? (
           <i className={`fas fa-check ${styles.addedToCart}`}></i>
         ) : (
-          <i className="fas fa-cart-plus"></i>
-        )}
+            <i className="fas fa-cart-plus"></i>
+          )}
       </div>
       <img className={styles["meal-img"]} src={props.meal.imageUrl} />
       <hr></hr>

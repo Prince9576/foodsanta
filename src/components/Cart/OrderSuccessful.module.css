@@ -1,0 +1,15 @@
+.delivering {
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.7rem;
+    margin-top: 1.2rem;
+}
+.address-ctr {
+    font-size: 1.1rem;
+    line-height: 1.4rem;
+}
+
+.cartlist-ctr {
+    background-color: #f7f7f7;
+    padding: 1rem;
+}
