@@ -1,26 +1,28 @@
-import React, { useImperativeHandle } from "react";
-import useInput from "../../../hooks/use-input";
+import React, { useState } from "react";
 import styles from "./input.module.css";
 
-const Input = React.forwardRef((props, ref) => {
-  const {
-    enteredValue,
-    isValid,
-    hasError,
-    nameChangeHandler,
-    blurChangeHandler,
-    reset,
-  } = useInput((value) => {
-    return props.validationFn(value);
-  });
+const Input = (props) => {
+  const [enteredValue, setEnteredValue] = useState("");
+  const [isTouched, setIsTouched] = useState(false);
+  const isValid = props.validationFn(enteredValue);
+  const hasError = isTouched && !isValid;
 
-  useImperativeHandle(ref, () => {
-    return {
-      isValid,
-      reset,
-      value: enteredValue,
-    };
-  });
+  const nameChangeHandler = (event) => {
+    setEnteredValue(event.target.value);
+    props.onChange({
+      value: event.target.value,
+      validity: isValid,
+    });
+  };
+
+  const blurChangeHandler = () => {
+    setIsTouched(true);
+  };
+
+  const reset = () => {
+    setEnteredValue("");
+    setIsTouched(false);
+  };
 
   const inputClass = hasError ? styles.invalid : "";
   const importantMarkup = (
@@ -47,6 +49,6 @@ const Input = React.forwardRef((props, ref) => {
       ></input>
     </div>
   );
-});
+};
 
 export default Input;
