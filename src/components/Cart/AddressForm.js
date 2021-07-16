@@ -1,9 +1,13 @@
-import { useRef, useContext, useState } from "react";
+import { useRef, useContext, useState, useEffect } from "react";
 import Button from "../UI/Button/Button";
 import Input from "../UI/Button/Input";
 import styles from "./AddressForm.module.css";
 import { BrowserView } from "react-device-detect";
 import AddressContext from "../../store/AddressContext";
+import {
+  isImportantValidation,
+  looseValidation,
+} from "../../validations/form-validation";
 const defaultFormValue = {
   value: "",
   validity: false,
@@ -85,6 +89,32 @@ const AddressForm = (props) => {
     });
   };
 
+  useEffect(() => {
+    console.log("Evaluating", quarterForm, apartmentForm);
+    if (
+      quarterForm.validity &&
+      apartmentForm.validity &&
+      streetForm.validity &&
+      sectorForm.validity &&
+      cityForm.validity &&
+      stateForm.validity &&
+      zipForm.validity
+    ) {
+      setFormValidity(true);
+    } else {
+      setFormValidity(false);
+    }
+  }, [
+    quarterForm.validity,
+    apartmentForm.validity,
+    streetForm.validity,
+    sectorForm.validity,
+    cityForm.validity,
+    stateForm.validity,
+    zipForm.validity,
+    formValidity,
+  ]);
+
   return (
     <form className={styles["form"]}>
       <div className={styles["form-group"]}>
@@ -96,9 +126,7 @@ const AddressForm = (props) => {
           placeholder="Ex : 102"
           isImportant={false}
           group="two"
-          validationFn={(value) => {
-            return value.trim().length < 10;
-          }}
+          validationFn={looseValidation}
         />
 
         <Input
@@ -109,9 +137,7 @@ const AddressForm = (props) => {
           placeholder="Ex : Maheshwari Apartment"
           isImportant={true}
           group="two"
-          validationFn={(value) => {
-            return value && value.trim() !== "" && value.trim().length < 100;
-          }}
+          validationFn={isImportantValidation}
         />
       </div>
 
@@ -125,9 +151,7 @@ const AddressForm = (props) => {
             placeholder="Ex : 14"
             isImportant={false}
             group="two"
-            validationFn={(value) => {
-              return value.trim().length < 10;
-            }}
+            validationFn={looseValidation}
           />
           <Input
             onChange={onSectorValueChangeHandler}
@@ -137,9 +161,7 @@ const AddressForm = (props) => {
             placeholder="Ex : Sector 58"
             isImportant={true}
             group="two"
-            validationFn={(value) => {
-              return value && value.trim() !== "" && value.trim().length < 100;
-            }}
+            validationFn={isImportantValidation}
           />
         </div>
       </BrowserView>
@@ -152,9 +174,7 @@ const AddressForm = (props) => {
           placeholder="Ex : Mumbai"
           isImportant={true}
           group="three"
-          validationFn={(value) => {
-            return value && value.trim() !== "" && value.trim().length < 100;
-          }}
+          validationFn={isImportantValidation}
         />
         <Input
           onChange={onStateValueChangeHandler}
@@ -164,9 +184,7 @@ const AddressForm = (props) => {
           placeholder="Ex : Maharashtra"
           isImportant={true}
           group="three"
-          validationFn={(value) => {
-            return value && value.trim() !== "" && value.trim().length < 100;
-          }}
+          validationFn={isImportantValidation}
         />
         <Input
           onChange={onZipValueChangeHandler}
@@ -176,9 +194,7 @@ const AddressForm = (props) => {
           placeholder="Ex : 827009"
           isImportant={true}
           group="three"
-          validationFn={(value) => {
-            return value && value.trim() !== "" && value.trim().length < 100;
-          }}
+          validationFn={isImportantValidation}
         />
       </div>
       <div className={styles["form-action"]}>
@@ -192,17 +208,7 @@ const AddressForm = (props) => {
           type="submit"
           name="Submit"
           onClick={addAddressHandler}
-          disabled={
-            !(
-              quarterForm.validity &&
-              apartmentForm.validity &&
-              streetForm.validity &&
-              sectorForm.validity &&
-              cityForm.validity &&
-              stateForm.validity &&
-              zipForm.validity
-            )
-          }
+          disabled={!formValidity}
         />
       </div>
     </form>

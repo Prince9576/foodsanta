@@ -11,7 +11,7 @@ const Input = (props) => {
     setEnteredValue(event.target.value);
     props.onChange({
       value: event.target.value,
-      validity: isValid,
+      validity: props.validationFn(event.target.value),
     });
   };
 
