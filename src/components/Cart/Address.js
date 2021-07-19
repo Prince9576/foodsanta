@@ -4,8 +4,9 @@ import Modal from "../UI/Button/Modal";
 import styles from "./Address.module.css";
 import AddressForm from "./AddressForm";
 import AddressContext from "../../store/AddressContext";
+import { Transition } from "react-transition-group";
 
-const Address = (props) => {
+const Address = () => {
   const addressCtx = useContext(AddressContext);
   const [showAddressButton, setShowAddressButton] = useState(
     !addressCtx.isAddressAvailable
@@ -33,6 +34,7 @@ const Address = (props) => {
     finishUtil();
   }
   function addAddressButtonClickHandler() {
+    console.log("Address btn clicked");
     setShowModal(true);
   }
 
@@ -50,11 +52,22 @@ const Address = (props) => {
           onClick={addAddressButtonClickHandler}
         />
       )}
-      {showModal && (
-        <Modal closeModal={closeModalHandler} headerTitle="Address Form">
-          <AddressForm addressAdded={addressAddedHandler} />
-        </Modal>
-      )}
+      {
+        <Transition timeout={300} in={showModal} mountOnEnter unmountOnExit>
+          {(state) => {
+            console.log("Re rendering component", state);
+            return (
+              <Modal
+                show={state}
+                closeModal={closeModalHandler}
+                headerTitle="Address Form"
+              >
+                <AddressForm addressAdded={addressAddedHandler} />
+              </Modal>
+            );
+          }}
+        </Transition>
+      }
       {showAddressComponent && (
         <div>
           <h5 className={styles.heading}>Delivery Address</h5>

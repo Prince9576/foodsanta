@@ -46,6 +46,40 @@
   color: rgba(0, 0, 0, 0.8);
 }
 
+.modalOpen {
+  animation: fadein 0.3s ease-in-out forwards;
+}
+
+.modalClosed {
+  animation: fadeout 0.3s ease-in-out forwards;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+    left: 0;
+    transform: scale(0) translate(0%, 0%);
+  }
+  100% {
+    opacity: 1;
+    left: 50%;
+    transform: scale(1) translate(-50%, -50%);
+  }
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+    left: 50%;
+    transform: scale(1) translate(-50%, -50%);
+  }
+  100% {
+    opacity: 0;
+    left: 0;
+    transform: scale(0) translate(0%, 0%);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .modal {
     min-width: 80%;

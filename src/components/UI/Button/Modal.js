@@ -3,10 +3,18 @@ import styles from "./Modal.module.css";
 import reactDom from "react-dom";
 
 const ModalNode = (props) => {
+  const cssClasses = [
+    styles.modal,
+    props.show === "entering"
+      ? styles.modalOpen
+      : props.show === "exiting"
+      ? styles.modalClosed
+      : "",
+  ];
   return (
     <React.Fragment>
       <div onClick={props.closeModal} className={styles.overlay}></div>
-      <div className={styles.modal}>
+      <div className={cssClasses.join(" ")}>
         <div className={styles.header}>
           <div className={styles["header-layer"]}>
             <h2 className={styles.headerTitle}>{props.headerTitle}</h2>
@@ -24,10 +32,12 @@ const ModalNode = (props) => {
   );
 };
 const Modal = (props) => {
+  console.log(props.show);
   return (
     <React.Fragment>
       {reactDom.createPortal(
         <ModalNode
+          show={props.show}
           closeModal={props.closeModal}
           headerTitle={props.headerTitle}
           children={props.children}
