@@ -1,5 +1,5 @@
 const configration = {
-  fetchDummyData: false,
+  fetchDummyData: true,
 };
 
 export default configration;
