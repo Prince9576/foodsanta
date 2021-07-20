@@ -1,5 +1,18 @@
 .heading {
   margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.edit-icon {
+  font-size: 1rem;
+  color: dodgerblue;
+  margin-left: 10px;
+  transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.edit-icon:hover {
+  transform: scale(1.5);
+  cursor: pointer;
 }
 .address {
   margin: 8px 0;

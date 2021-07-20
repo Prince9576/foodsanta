@@ -46,6 +46,7 @@ const Input = (props) => {
         type={props.type}
         id={props.htmlFor}
         placeholder={props.placeholder}
+        value={props.val ? props.val : ""}
       ></input>
     </div>
   );

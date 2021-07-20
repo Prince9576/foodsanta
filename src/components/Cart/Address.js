@@ -4,7 +4,6 @@ import Modal from "../UI/Button/Modal";
 import styles from "./Address.module.css";
 import AddressForm from "./AddressForm";
 import AddressContext from "../../store/AddressContext";
-import { Transition } from "react-transition-group";
 
 const Address = () => {
   const addressCtx = useContext(AddressContext);
@@ -15,6 +14,7 @@ const Address = () => {
   const [showAddressComponent, setShowAddressComponent] = useState(
     addressCtx.isAddressAvailable
   );
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const finishUtil = () => {
     setShowModal(false);
@@ -28,16 +28,14 @@ const Address = () => {
   };
 
   function closeModalHandler() {
-    console.log("Address 111", addressCtx.address);
     finishUtil();
   }
-  function addressAddedHandler(event) {
-    console.log(
-      "Address submitted",
-      addressCtx.address,
-      addressCtx.isAddressAvailable
-    );
+  function addressAddedHandler() {
     finishUtil();
+  }
+  function editAddressButtonClickHandler() {
+    setIsEditMode(true);
+    setShowModal(true);
   }
   function addAddressButtonClickHandler() {
     console.log("Address btn clicked");
@@ -64,12 +62,18 @@ const Address = () => {
           closeModal={closeModalHandler}
           headerTitle="Address Form"
         >
-          <AddressForm addressAdded={addressAddedHandler} />
+          <AddressForm edit={isEditMode} addressAdded={addressAddedHandler} />
         </Modal>
       }
+
       {showAddressComponent && (
         <div>
-          <h5 className={styles.heading}>Delivery Address</h5>
+          <h5 className={styles.heading}>
+            <span className={styles["heading-title"]}>Delivery Address</span>
+            <span onClick={editAddressButtonClickHandler}>
+              <i className={`far fa-edit ${styles["edit-icon"]}`}></i>
+            </span>
+          </h5>
           <div className={styles.address}>
             <h1
               className={styles.heading}

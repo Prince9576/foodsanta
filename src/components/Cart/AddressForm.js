@@ -13,15 +13,44 @@ const defaultFormValue = {
   validity: false,
 };
 const AddressForm = (props) => {
+  console.log("AddressForm", props);
   const addressCtx = useContext(AddressContext);
   const [formValidity, setFormValidity] = useState(false);
-  const [quarterForm, setQuarterForm] = useState(defaultFormValue);
-  const [apartmentForm, setApartmentForm] = useState(defaultFormValue);
-  const [streetForm, setStreetForm] = useState(defaultFormValue);
-  const [sectorForm, setSectorForm] = useState(defaultFormValue);
-  const [cityForm, setCityForm] = useState(defaultFormValue);
-  const [stateForm, setStateForm] = useState(defaultFormValue);
-  const [zipForm, setZipForm] = useState(defaultFormValue);
+  const [quarterForm, setQuarterForm] = useState(
+    props.edit
+      ? { value: addressCtx.address.quarter, validity: true }
+      : defaultFormValue
+  );
+  const [apartmentForm, setApartmentForm] = useState(
+    props.edit
+      ? { value: addressCtx.address.apartment, validity: true }
+      : defaultFormValue
+  );
+  const [streetForm, setStreetForm] = useState(
+    props.edit
+      ? { value: addressCtx.address.street, validity: true }
+      : defaultFormValue
+  );
+  const [sectorForm, setSectorForm] = useState(
+    props.edit
+      ? { value: addressCtx.address.sector, validity: true }
+      : defaultFormValue
+  );
+  const [cityForm, setCityForm] = useState(
+    props.edit
+      ? { value: addressCtx.address.city, validity: true }
+      : defaultFormValue
+  );
+  const [stateForm, setStateForm] = useState(
+    props.edit
+      ? { value: addressCtx.address.state, validity: true }
+      : defaultFormValue
+  );
+  const [zipForm, setZipForm] = useState(
+    props.edit
+      ? { value: addressCtx.address.zip, validity: true }
+      : defaultFormValue
+  );
   const [submit, setSubmit] = useState(false);
   const addAddressHandler = (event) => {
     const addressObj = {
@@ -125,6 +154,7 @@ const AddressForm = (props) => {
     <form className={styles["form"]}>
       <div className={styles["form-group"]}>
         <Input
+          val={quarterForm.value}
           onChange={onQuarterValueChangeHandler}
           htmlFor="quarter"
           label="Qr/Building No"
@@ -136,6 +166,7 @@ const AddressForm = (props) => {
         />
 
         <Input
+          val={apartmentForm.value}
           onChange={onApartmentValueChangeHandler}
           htmlFor="apartment"
           label="Building/Apartment Name"
@@ -150,6 +181,7 @@ const AddressForm = (props) => {
       <BrowserView>
         <div className={styles["form-group"]}>
           <Input
+            val={streetForm.value}
             onChange={onStreetValueChangeHandler}
             htmlFor="street"
             label="Street Number"
@@ -160,6 +192,7 @@ const AddressForm = (props) => {
             validationFn={looseValidation}
           />
           <Input
+            val={sectorForm.value}
             onChange={onSectorValueChangeHandler}
             htmlFor="sector"
             label="Sector"
@@ -173,6 +206,7 @@ const AddressForm = (props) => {
       </BrowserView>
       <div className={styles["form-group"]}>
         <Input
+          val={cityForm.value}
           onChange={onCityValueChangeHandler}
           htmlFor="city"
           label="City"
@@ -183,6 +217,7 @@ const AddressForm = (props) => {
           validationFn={isImportantValidation}
         />
         <Input
+          val={stateForm.value}
           onChange={onStateValueChangeHandler}
           htmlFor="state"
           label="State"
@@ -193,6 +228,7 @@ const AddressForm = (props) => {
           validationFn={isImportantValidation}
         />
         <Input
+          val={zipForm.value}
           onChange={onZipValueChangeHandler}
           htmlFor="zip"
           label="Zip"
