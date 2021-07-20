@@ -19,24 +19,26 @@ const CartWrapper = (props) => {
     cartCtx.clearCart();
     mealCtx.clearAdded();
     setModal(false);
-  }
+  };
   const checkoutHandler = () => {
-    setModal(<Modal iconsMarkup={<i style={{ marginLeft: '7px', color: 'limegreen', fontSize: '1.2rem' }} className="fas fa-check-circle"></i>} closeModal={closeModalHandler} headerTitle="Order Placed"><OrderSuccessful></OrderSuccessful></Modal>)
+    setModal(true);
   };
 
   return (
     <div className={styles["cart-container"]}>
       <Address />
-      {addressCtx.isAddressAvailable && <div className={styles["info-list"]}>
-        <div className={styles["info-item"]}>
-          <i className="far fa-clock"></i>
-          <span>48 mins</span>
+      {addressCtx.isAddressAvailable && (
+        <div className={styles["info-list"]}>
+          <div className={styles["info-item"]}>
+            <i className="far fa-clock"></i>
+            <span>48 mins</span>
+          </div>
+          <div className={styles["info-item"]}>
+            <i className="fas fa-map-marker-alt"></i>
+            <span>4 kms</span>
+          </div>
         </div>
-        <div className={styles["info-item"]}>
-          <i className="fas fa-map-marker-alt"></i>
-          <span>4 kms</span>
-        </div>
-      </div>}
+      )}
       <hr className={styles["line"]}></hr>
       <CartList configurable={true} />
       <hr className={styles["line"]}></hr>
@@ -61,8 +63,31 @@ const CartWrapper = (props) => {
         </div>
       </div>
       <hr className={styles["line"]}></hr>
-      <Button disabled={!addressCtx.isAddressAvailable} type="submit" name="Place Order" onClick={checkoutHandler} />
-      {modal && modal}
+      <Button
+        disabled={!addressCtx.isAddressAvailable}
+        type="submit"
+        name="Place Order"
+        onClick={checkoutHandler}
+      />
+      {modal && (
+        <Modal
+          show={modal}
+          iconsMarkup={
+            <i
+              style={{
+                marginLeft: "7px",
+                color: "limegreen",
+                fontSize: "1.2rem",
+              }}
+              className="fas fa-check-circle"
+            ></i>
+          }
+          closeModal={closeModalHandler}
+          headerTitle="Order Placed"
+        >
+          <OrderSuccessful></OrderSuccessful>
+        </Modal>
+      )}
     </div>
   );
 };
