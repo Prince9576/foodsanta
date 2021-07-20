@@ -22,6 +22,7 @@ const AddressForm = (props) => {
   const [cityForm, setCityForm] = useState(defaultFormValue);
   const [stateForm, setStateForm] = useState(defaultFormValue);
   const [zipForm, setZipForm] = useState(defaultFormValue);
+  const [submit, setSubmit] = useState(false);
   const addAddressHandler = (event) => {
     const addressObj = {
       quarter: quarterForm.value,
@@ -33,10 +34,15 @@ const AddressForm = (props) => {
       zip: zipForm.value,
     };
     addressCtx.addAddress(addressObj);
+    setSubmit(true);
     event.preventDefault();
-
-    props.addressAdded(addressObj);
   };
+
+  useEffect(() => {
+    if (submit) {
+      props.addressAdded();
+    }
+  }, [submit]);
 
   const onQuarterValueChangeHandler = ({ value, validity }) => {
     console.log("Quarter", value, validity);

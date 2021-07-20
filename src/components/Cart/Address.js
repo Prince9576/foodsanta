@@ -28,9 +28,15 @@ const Address = () => {
   };
 
   function closeModalHandler() {
+    console.log("Address 111", addressCtx.address);
     finishUtil();
   }
   function addressAddedHandler(event) {
+    console.log(
+      "Address submitted",
+      addressCtx.address,
+      addressCtx.isAddressAvailable
+    );
     finishUtil();
   }
   function addAddressButtonClickHandler() {
@@ -53,20 +59,13 @@ const Address = () => {
         />
       )}
       {
-        <Transition timeout={300} in={showModal} mountOnEnter unmountOnExit>
-          {(state) => {
-            console.log("Re rendering component", state);
-            return (
-              <Modal
-                show={state}
-                closeModal={closeModalHandler}
-                headerTitle="Address Form"
-              >
-                <AddressForm addressAdded={addressAddedHandler} />
-              </Modal>
-            );
-          }}
-        </Transition>
+        <Modal
+          show={showModal}
+          closeModal={closeModalHandler}
+          headerTitle="Address Form"
+        >
+          <AddressForm addressAdded={addressAddedHandler} />
+        </Modal>
       }
       {showAddressComponent && (
         <div>

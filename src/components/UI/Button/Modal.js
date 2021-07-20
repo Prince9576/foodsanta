@@ -1,34 +1,39 @@
 import React from "react";
 import styles from "./Modal.module.css";
 import reactDom from "react-dom";
+import { CSSTransition } from "react-transition-group";
 
 const ModalNode = (props) => {
-  const cssClasses = [
-    styles.modal,
-    props.show === "entering"
-      ? styles.modalOpen
-      : props.show === "exiting"
-      ? styles.modalClosed
-      : "",
-  ];
+  console.log(props, "Props in modal");
   return (
-    <React.Fragment>
-      <div onClick={props.closeModal} className={styles.overlay}></div>
-      <div className={cssClasses.join(" ")}>
-        <div className={styles.header}>
-          <div className={styles["header-layer"]}>
-            <h2 className={styles.headerTitle}>{props.headerTitle}</h2>
-            {props.iconsMarkup && props.iconsMarkup}
+    <CSSTransition
+      timeout={300}
+      in={props.show}
+      mountOnEnter
+      unmountOnExit
+      classNames={{
+        enterActive: styles.modalOpen,
+        exitActive: styles.modalClosed,
+      }}
+    >
+      <div>
+        <div onClick={props.closeModal} className={styles.overlay}></div>
+        <div className={styles.modal}>
+          <div className={styles.header}>
+            <div className={styles["header-layer"]}>
+              <h2 className={styles.headerTitle}>{props.headerTitle}</h2>
+              {props.iconsMarkup && props.iconsMarkup}
+            </div>
+            <i
+              onClick={props.closeModal}
+              className={`fas fa-times ${styles.close}`}
+            ></i>
           </div>
-          <i
-            onClick={props.closeModal}
-            className={`fas fa-times ${styles.close}`}
-          ></i>
+          <hr></hr>
+          <div className={styles.content}>{props.children}</div>
         </div>
-        <hr></hr>
-        <div className={styles.content}>{props.children}</div>
       </div>
-    </React.Fragment>
+    </CSSTransition>
   );
 };
 const Modal = (props) => {

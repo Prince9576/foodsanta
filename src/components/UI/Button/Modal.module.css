@@ -46,11 +46,11 @@
   color: rgba(0, 0, 0, 0.8);
 }
 
-.modalOpen {
+.modalOpen .modal {
   animation: fadein 0.3s ease-in-out forwards;
 }
 
-.modalClosed {
+.modalClosed .modal {
   animation: fadeout 0.3s ease-in-out forwards;
 }
 
